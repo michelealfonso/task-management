@@ -1,6 +1,6 @@
 import SignInForm from '@/components/form/SignInForm';
 
-const page = () => {
+export default function Page() {
   return (
     <div className='w-full'>
       <SignInForm />
@@ -8,4 +8,3 @@ const page = () => {
   );
 };
 
-export default page;
