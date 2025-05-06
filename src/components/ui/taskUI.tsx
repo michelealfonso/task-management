@@ -8,7 +8,7 @@ export default function TaskUI() {
     const [form, setForm] = useState({
         title: '',
         description: '',
-        dueDate: '',
+        dueDate: new Date().toISOString().slice(0, 10),
         priority: 'low',
         status: 'pending',
     })
@@ -68,7 +68,13 @@ export default function TaskUI() {
             setTasks([...tasks, data.task]);
         }
 
-        setForm({ title: '', description: '', dueDate: '', priority: 'low', status: 'pending' })
+        setForm({ 
+            title: '', 
+            description: '', 
+            dueDate: new Date().toISOString().slice(0, 10), 
+            priority: 'low', 
+            status: 'pending' 
+        })
     }
 
     // funzione per la modifica del task
@@ -181,7 +187,7 @@ export default function TaskUI() {
                 )}
             </div>
 
-            <div className="w-auto h-auto flex col justify-center items-center">
+            <div className="w-auto h-auto flex flex-col justify-center items-center">
                 <h1 className="text-2xl mb-4"> Lista dei Task </h1>
                 <div className="w-auto h-auto flex flex-wrap">
                     <ul className="w-full max-w-xl space-y-4 mb-8">
