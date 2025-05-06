@@ -68,12 +68,12 @@ export default function TaskUI() {
             setTasks([...tasks, data.task]);
         }
 
-        setForm({ 
-            title: '', 
-            description: '', 
-            dueDate: new Date().toISOString().slice(0, 10), 
-            priority: 'low', 
-            status: 'pending' 
+        setForm({
+            title: '',
+            description: '',
+            dueDate: new Date().toISOString().slice(0, 10),
+            priority: 'low',
+            status: 'pending'
         })
     }
 
@@ -98,7 +98,7 @@ export default function TaskUI() {
         const data = await response.json();
 
         setTasks(tasks.map(task => task.id === id ? data.task : task));
-        setMessage(data.message);
+        setMessage({ text: 'Task modificato con successo' , type: 'success'});
         setEditId(null);
         setEditForm(null);
     }
@@ -119,7 +119,7 @@ export default function TaskUI() {
         const data = await response.json();
 
         setTasks(tasks.filter(task => task.id !== id));
-        setMessage(data.message);
+        setMessage({ text: 'Task eliminato con successo' , type: 'success'});
     }
 
     return (
@@ -236,18 +236,20 @@ export default function TaskUI() {
                                                     <option value="in-progress">In corso</option>
                                                     <option value="completed">Completato</option>
                                                 </select>
-                                                <button
-                                                    onClick={() => updateTask(task.id)}
-                                                    className="px-3 py-1 bg-green-600 hover:bg-green-500 text-white rounded mr-2"
-                                                >
-                                                    Salva
-                                                </button>
-                                                <button
-                                                    onClick={() => setEditId(null)}
-                                                    className="px-3 py-1 bg-red-600 hover:bg-red-500 text-white rounded"
-                                                >
-                                                    Annulla
-                                                </button>
+                                                <div className="flex gap-5">
+                                                    <button
+                                                        onClick={() => updateTask(task.id)}
+                                                        className="px-3 py-1 bg-green-600 hover:bg-green-500 text-white rounded mr-2"
+                                                    >
+                                                        Salva
+                                                    </button>
+                                                    <button
+                                                        onClick={() => setEditId(null)}
+                                                        className="px-3 py-1 bg-red-600 hover:bg-red-500 text-white rounded"
+                                                    >
+                                                        Annulla
+                                                    </button>
+                                                </div>
                                             </>
                                         ) : (
                                             <>
@@ -256,7 +258,7 @@ export default function TaskUI() {
                                                 <p><strong>Scadenza:</strong> {task.dueDate} </p>
                                                 <p><strong>Priorità:</strong> {task.priority} </p>
                                                 <p><strong>Stato:</strong> {task.status} </p>
-                                                <div className="mt-2 space-x-2">
+                                                <div className="w-auto h-auto flex justify-center items-center gap-5">
                                                     <button onClick={() => handleDelete(task.id)} className="bg-red-600 px-4 py-1 rounded"> Elimina </button>
                                                     <button onClick={() => {
                                                         setEditId(task.id);
